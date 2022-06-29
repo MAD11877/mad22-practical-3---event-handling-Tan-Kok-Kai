@@ -24,7 +24,7 @@
         tools:visibility="visible" />
 
     <TextView
-        android:id="@+id/textView"
+        android:id="@+id/Linear"
         android:layout_width="wrap_content"
         android:layout_height="48dp"
         android:layout_marginStart="100dp"
@@ -52,7 +52,7 @@
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView" />
+        app:layout_constraintTop_toBottomOf="@+id/Linear" />
 
     <Button
         android:id="@+id/button"

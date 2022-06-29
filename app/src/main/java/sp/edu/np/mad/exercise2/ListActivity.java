@@ -2,6 +2,8 @@ package sp.edu.np.mad.exercise2;
 
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -10,39 +12,28 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Random;
 
 public class ListActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        ArrayList<User> userList = new ArrayList<>();
         setContentView(R.layout.activity_list);
-        ImageView imageClick = findViewById(R.id.imageClick);
+        RecyclerView imageClick = findViewById(R.id.imageClick);
+        for (int i = 0; i < 20; i++){
+            User forUser = new User("Name" + randomOTP(), "Description " +
+                    randomOTP(), i, false);
+            userList.add(forUser);
+        }
+        myAdaptor mAdaptor = new myAdaptor(userList);
+        LinearLayoutManager mLayoutManager = new LinearLayoutManager(this);
+        imageClick.setLayoutManager(mLayoutManager);
+        imageClick.setAdapter(mAdaptor);
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        imageClick.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                builder.setMessage("MADness").setCancelable(false);
-                builder.setPositiveButton("View", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialogInterface, int i) {
-                        String value = String.valueOf(randomOTP());
-                        Bundle extras = new Bundle();
-                        extras.putString("randomInt", value);
-                        Intent intentList = new Intent(ListActivity.this, MainActivity.class);
-                        intentList.putExtras(extras);
-                        startActivity(intentList);
-                    }
-                });
-                builder.setNegativeButton("Close", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialogInterface, int i) {
-                        finish();
-                    }
-                });
-                builder.show();
-            }
-        });
+
     }
     private int randomOTP(){
         Random ran = new Random();

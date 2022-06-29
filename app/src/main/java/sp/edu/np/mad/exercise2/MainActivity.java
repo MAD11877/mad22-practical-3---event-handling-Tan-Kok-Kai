@@ -6,11 +6,8 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
-
-import java.util.Scanner;
 
 public class MainActivity extends AppCompatActivity {
     String Tag = "Main Activity";
@@ -19,9 +16,9 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        TextView name = findViewById(R.id.textView);
+        TextView name = findViewById(R.id.Linear);
         TextView desc = findViewById(R.id.textView2);
-        name.setText(user.getName());
+        name.setText(user.getName());;
         desc.setText(user.getDescription());
         Button follow = findViewById(R.id.button);
         Button message = findViewById(R.id.button2);
@@ -34,7 +31,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 if (user.isFollowed() == false){
-                    Toast.makeText(MainActivity.this, "fod", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(MainActivity.this, "followed", Toast.LENGTH_SHORT).show();
                     follow.setText("Unfollow");
                     user.setFollowed(true);
 
