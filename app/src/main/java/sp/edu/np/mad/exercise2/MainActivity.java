@@ -7,36 +7,55 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.DefaultItemAnimator;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
+import java.util.ArrayList;
+import java.util.Random;
 
 public class MainActivity extends AppCompatActivity {
     String Tag = "Main Activity";
-    User user = new User("MAD","Description for MAD blah blah",1, false);
+    String value;
+    String dValue;
+    Boolean fValue;
+    Integer pValue;
+    ArrayList<User> users = ListActivity.usersList;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         Intent receivingEnd = getIntent();
-        String value = receivingEnd.getStringExtra("randomInt");
+        value = receivingEnd.getStringExtra("Name");
+        dValue = receivingEnd.getStringExtra("Description");
+        fValue = receivingEnd.getBooleanExtra("Followed", false);
+        pValue = receivingEnd.getIntExtra("position", 0);
         setContentView(R.layout.activity_main);
         TextView name = findViewById(R.id.textView);
         TextView desc = findViewById(R.id.textView2);
-        name.setText(user.getName() + " " + value);
-        desc.setText(user.getDescription());
+        name.setText(value);
+        desc.setText(dValue);
         Button follow = findViewById(R.id.button);
         Button message = findViewById(R.id.button2);
         message.setText("Message");
-        follow.setText("follow");
+        if (fValue == false){
+            follow.setText("Follow");
+        }
+        else{
+            follow.setText("Unfollow");
+        }
         follow.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (user.isFollowed() == false){
+                if (users.get(pValue).isFollowed() == false){
                     follow.setText("Unfollow");
-                    user.setFollowed(true);
+                    users.get(pValue).setFollowed(true);
                     Toast.makeText(MainActivity.this, "Followed", Toast.LENGTH_SHORT).show();
                 }
                 else{
                     follow.setText("Follow");
-                    user.setFollowed(false);
+                    users.get(pValue).setFollowed(false);
                     Toast.makeText(MainActivity.this, "Unfollowed", Toast.LENGTH_SHORT).show();
 
                 }
@@ -50,4 +69,5 @@ public class MainActivity extends AppCompatActivity {
             }
         });
     }
+
 }
